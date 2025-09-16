@@ -12,6 +12,7 @@
     <Compile Include="DbModel.fs" />
     <Compile Include="TagData.fs" />
     <Compile Include="ParseLine.fs" />
+    <Compile Include="ParseArticle.fs" />
     <Compile Include="Program.fs" />
     <Content Include="HagenMin.txt" />
     <Content Include="Db\HagenMorph.db">

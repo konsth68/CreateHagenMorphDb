@@ -55,8 +55,6 @@ type OverTagDict =
 
 module DbModel =
     
-    //TODO: AccentMain and AccentSecond Type
-    
     //Clear Table
     let ClearTable (table :string) =
         let sql = $"DELETE FROM {table}"

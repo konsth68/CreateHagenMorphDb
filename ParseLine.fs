@@ -23,7 +23,9 @@ type Grammar =
 type LemmaStr =
     {
         Word :string
+        Type :TypeRec
         NotUsed :bool
+        GramarStr :string
         Grammar :Grammar
         AccentMain :int
         AccentSecond :int
@@ -36,7 +38,9 @@ type LemmaStr =
 type WordStr =
     {
         Word :string
+        Type :TypeRec
         NotUsed :bool
+        GramarStr :string
         Grammar :Grammar
         AccentMain :int
         AccentSecond :int
@@ -49,6 +53,14 @@ type GrammarStrArr =
         Pos :string
         Grmm :string array
     }
+
+type MorphData =
+    | LemmaData of LemmaStr
+    | WordData of WordStr
+    | SubWordData of WordStr
+    | EmptyString
+    | Error
+    
 
 module ParseLine =
     
@@ -190,7 +202,9 @@ module ParseLine =
         let lm :LemmaStr =
             {
                 Word = parseWord sArr[0]
+                Type = TypeRec.Lemma
                 NotUsed = parseNotUsed sArr[0]
+                GramarStr = sArr[1].Trim()
                 Grammar = parseGrammar (sArr[1].Trim())
                 AccentMain = parseAccentMain sArr[2]
                 AccentSecond = parseAccentSecond sArr[2]
@@ -201,14 +215,40 @@ module ParseLine =
             }
         lm
     
-    let parseWordStr (sArr :string array) =
+    let CheckWordSubword (subFl :bool) =
+        if subFl = true then
+            TypeRec.SubWord
+        else
+            TypeRec.Word
+    
+    let parseWordStr (sArr :string array) (subFl :bool) =
         let wr :WordStr =
             {
                 Word = parseWord sArr[0]
+                Type = CheckWordSubword subFl
                 NotUsed = parseNotUsed sArr[0]
+                GramarStr = sArr[1].Trim()
                 Grammar = parseGrammar (sArr[1].Trim())
                 AccentMain = parseAccentMain sArr[2]
                 AccentSecond = parseAccentSecond sArr[2]
                 HagenId = parseHagenId sArr[3]
             }
         wr
+    
+    let testEmptyString (str :string) =
+        String.IsNullOrEmpty str
+    
+    let testSubStr (str :string) =
+        str[0] = ' ' &&  not (String.IsNullOrEmpty str)
+    
+    let parseString (str :string) =
+        let subFl = testSubStr str            
+        let empty = testEmptyString str
+        
+        let mrfStr = splitLine str
+        match mrfStr,subFl,empty with
+        | Lemma x,_,false  -> LemmaData(parseLemmaStr x)
+        | Word x,false,false -> WordData(parseWordStr x subFl)
+        | Word x,true,false ->  SubWordData(parseWordStr x subFl)
+        | _,_,true -> EmptyString
+        | NotCorrect,_,_ -> Error 
