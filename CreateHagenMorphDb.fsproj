@@ -13,6 +13,9 @@
     <Compile Include="TagData.fs" />
     <Compile Include="ParseLine.fs" />
     <Compile Include="ParseArticle.fs" />
+    <Compile Include="HagenRawDb.fs" />
+    <Compile Include="ParseFile.fs" />
+    <Compile Include="Test.fs" />
     <Compile Include="Program.fs" />
     <Content Include="HagenMin.txt" />
     <Content Include="Db\HagenMorph.db">
@@ -21,6 +24,8 @@
     <Content Include="Data\hagen.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\GrammarHelp2.txt" />
+    <Content Include="Data\hagen-details.txt" />
   </ItemGroup>
 
   <ItemGroup>

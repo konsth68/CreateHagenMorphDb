@@ -1,0 +1,112 @@
+
+--PosTag --Часть Речи
+Tag      | Type              | Cod | Russian         | ReductionFr
+---------------------------------------------------------
+""       | Pos.None          | 0   |                 |
+"сущ"    | Pos.Noun          | 1   | Существительное |
+"прл"    | Pos.Adjective     | 2   | Прилагательное  |
+"гл"     | Pos.Verb          | 3   | Глагол          |
+"нар"    | Pos.Adverb        | 4   | Наречие         |
+"числ"   | Pos.Numeral       | 5   | Числительное    |
+"прч"    | Pos.Participle    | 6   | Причастие       |
+"дееп"   | Pos.Transgressive | 7   | Деепричастие    |
+"мест"   | Pos.Pronoun       | 8   | Местоимение     |
+"предл"  | Pos.Preposition   | 9   | Предлог         |
+"союз"   | Pos.Conjunction   | 10  | Союз            |
+"част"   | Pos.Particle      | 11  | Частица         |
+"межд"   | Pos.Interjection  | 12  | Междометие      |
+"предик" | Pos.Predicative   | 13  | Предикатив      |
+"ввод"   | Pos.Parenthesis   | 14  | Вводное слово   |
+
+--GenderTag --Род
+Tag   | Type                 | Cod  | Russian | ReductionFr
+------------------------------------------------------------
+""    | Gender.None          | 0    |         |  
+"муж" | Gender.Masculine     | 1    | Мужской | m
+"жен" | Gender.Feminine      | 2    | Женский | f
+"ср"  | Gender.Neuter        | 3    | Средний | n
+"общ" | Gender.Common        | 4    | Общий   | a
+
+--NumberTag --Число
+Tag   | Type                 | Cod  | Russian        | ReductionFr
+------------------------------------------------------------------
+""    | Number.None          | 0     |               |
+"ед"  | Number.Singular      | 1     | Единственное  | sg
+"мн"  | Number.Plural        | 2     | Множественное | pl
+
+--CaseTag --Падеж
+Tag    | Type                | Cod  | Russian        | ReductionFr
+------------------------------------------------------------------
+""     | Case.None           | 0    |                | 
+"им"   | Case.Nominative     | 1    |  Именительный  | N
+"род"  | Case.Genitive       | 2    |  Родительный   | G
+"дат"  | Case.Dative         | 3    |  Дательный     | D
+"вин"  | Case.Accusative     | 4    |  Винительный   | A
+"тв"   | Case.Instrumental   | 5    |  Творительный  | I
+"пр"   | Case.Prepositional  | 6    |  Предложный    | P
+"мест" | Case.Locative       | 7    |  Местный       | L
+"парт" | Case.Partitive      | 8    |  Частичный     | Par
+"зват" | Case.Vocative       | 9    |  Звательный    | V
+"счет" | Case.Counting       | 10   |  Cчетный       | Coun
+
+--TenseTag --Время
+Tag    | Type                | Cod  | Russian        | ReductionFr
+------------------------------------------------------------------
+""     | Tense.None          | 0    |                |
+"прош" | Tense.Past          | 1    | Прошедшее      | Passé
+"наст" | Tense.Present       | 2    | Настоящее      | Présent
+"буд"  | Tense.Future        | 3    | Будущее        | Future
+"инф"  | Tense.Infinitive    | 4    | Инфинитив      | Infinitive
+
+--Person --Лицо
+Tag   | Type                | Cod  | Russian        | ReductionFr
+-------------------------------------------------------------------
+""    | Person.None = 0             |                |                
+"1-е" | Person.First         | 1    | Первое         | 1     
+"2-е" | Person.Second        | 2    | Второе         | 2    
+"3-е" | Person.Third         | 3    | Третие         | 3    
+
+--Аnimal --Одушевленный 
+Tag   | Type                | Cod  | Russian        | ReductionFr
+-------------------------------------------------------------------
+""    |   Animal.None       | 0    | ""             |
+"одуш"|   Animal.Animated   | 1    |Одушевленный    | qn
+"неод"|   Animal.Inanimate  | 2    |Неодушевленный  | qch
+
+
+--Over --Другое
+Bit|Tag        |Type                    |Int       |Russian                      |
+---------------------------------------------------------------------------------|
+0  |"прев"     |   Over.Superlative     |1         |Превосходная                 |
+1  |"сравн"    |   Over.Comparative     |2         |Сравнительная                |
+2  |"крат"     |   Over.Short           |4         |Краткое                      |
+3  |"неизм"    |   Over.Immutable       |8         |Неизменяемое                 |
+4  |"сов"      |   Over.Perfect         |16        |Совершенный                  |
+5  |"несов"    |   Over.Imperfect       |32        |Несовершенный                |
+6  |"2вид"     |   Over.PastSimple      |64        |2 вид                        |
+7  |"непер"    |   Over.Intransitive    |128       |Непереходный                 |
+8  |"перех"    |   Over.Transitive  	|256       |Переходный                   |
+9  |"воз"      |   Over.Reflexive       |512       |Возвратный                   |
+10 |"пер/не"   |   Over.PerNot          |1024      |Несовершенный и совершенный  |    
+11 |"безл"     |   Over.Impersonal      |2048      |Безличный                    |    
+12 |"пов"      |   Over.Imperative      |4096      |Повелительное наклонение     |    
+13 |"обст"     |   Over.Circumstantial  |8192      |Обстоятельственные           |
+14 |"опред"    |   Over.Definitive      |16384     |Определительные              |
+15 |"врем"     |   Over.Time            |32768     |Времени                      |
+16 |"места"    |   Over.Places          |65536     |Места                        |
+17 |"цель"     |   Over.Goals           |131072    |Цели                         |
+18 |"причин"   |   Over.Reasons         |262144    |Причины                      |
+19 |"кач"      |   Over.Qualitative     |524288    |Качественное                 |   
+20 |"степ"     |   Over.Power           |1048576   |Количественные меры и степени|
+21 |"вопр"	   |   Over.Interrogative   |2097152   |Вопросительное               |
+22 |"напр"	   |   Over.Direction	    |4194304   |Направление                  |
+23 |"спос"     |   Over.OfManner        |8388608   |Способа                      | 
+24 |"кол" 	   |   Over.Quantitative    |16777216  |Количественные               |
+25 |"поряд"    |   Over.Ordinal         |33554432  |Порядковые                   |
+26 |"неопр"    |   Over.Indefinite  	|67108864  |Неопределенное               | 
+27 |"собир"    |   Over.Collective      |134217728 |Собирательные                |
+28 |"страд"    |   Over.Passive         |268435456 |Страдательное                |     
+29 |"нар"      |   Over.Adverb          |536870912 |Наречие                      |
+30 |"прл"      |   Over.Adjective       |1073741824|Прилогательное               |
+31 |"сущ"      |   Over.Noun            |2147483648|Существительное              |
+
