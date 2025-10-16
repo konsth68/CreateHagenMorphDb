@@ -35,17 +35,20 @@ module Program =
         
         let hr = dispatcherLine dt
         
-        let resHagenSeq = CreateDb hr
+        //let resHagenSeq = CreateDb hr
+        let resHagenSeq = CreateCsvFileDb hr (curDir + "\\hagenRaw2.csv")
+       // let dd = createDict hr (curDir + "\\hagenRaw2.csv")
+        
         
         printfn "Dictionary Add :"
         for ra in resTagArr do
             printfn "--------------------"
             prinntProblemOperation ra        
         
-        let HrReaArr :int option array = Seq.toArray resHagenSeq
+        //let HrReaArr :int option array = Seq.toArray resHagenSeq
         
-        printfn "Hagen Raw Add :"
-        prinntProblemOperation HrReaArr
+        //printfn "Hagen Raw Add :"
+        //prinntProblemOperation HrReaArr
         
         
         printfn "__END__"

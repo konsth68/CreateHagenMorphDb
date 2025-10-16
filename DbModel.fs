@@ -11,6 +11,7 @@ type HagenRaw =
         UpMorphId : int64
         Type :int
         Word : string
+        DispWord : string
         NotUsed :int
         GrammarStr : string
         Stem : string
@@ -73,6 +74,7 @@ module DbModel =
                    "Type," +
                    "NotUsed," +
                    "Word," +
+                   "DispWord," +
                    "GrammarStr," +
                    "Steam," +
                    "AccentPosMain," +
@@ -95,6 +97,7 @@ module DbModel =
                    $"{data.Type}," +
                    $"{data.NotUsed}," +
                    $"\'{data.Word}\'," +                   
+                   $"\'{data.DispWord}\'," +
                    $"\'{data.GrammarStr}\'," +
                    $"\'{data.Stem}\'," +
                    $"{data.AccentPosMain}," +
@@ -120,6 +123,7 @@ module DbModel =
                       $" Type = {data.Type}, " +
                       $" NotUsed = {data.NotUsed}, " +                      
                       $" Word = \'{data.Word}\', " +
+                      $" DispWord = \'{data.DispWord}\', " +
                       $" GrammarStr = \'{data.GrammarStr}\', " +
                       $" Stem = \'{data.Stem}\', " +
                       $" AccentPosMain = {data.AccentPosMain}, " +

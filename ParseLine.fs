@@ -1,7 +1,9 @@
 namespace CreateHagenMorphDb
 
 open System
+open System.Security.Cryptography
 open CreateHagenMorphDb.TagData
+open System.Collections.Generic
 
 type MorphStr =
     | Lemma of string array   
@@ -23,6 +25,7 @@ type Grammar =
 type LemmaStr =
     {
         Word :string
+        DispWord :string
         Type :TypeRec
         NotUsed :bool
         GramarStr :string
@@ -38,6 +41,7 @@ type LemmaStr =
 type WordStr =
     {
         Word :string
+        DispWord :string
         Type :TypeRec
         NotUsed :bool
         GramarStr :string
@@ -64,6 +68,34 @@ type MorphData =
 
 module ParseLine =
     
+    let accented = dict [ ("а́","а"); ("я́","я"); ("у́","у"); ("ю́","ю"); ("о́","о"); ("е́","е"); ("э́","э"); ("и́","и"); ("ы́","ы");
+                      ("А́","А"); ("Я́","Я"); ("У́","У"); ("Ю́","Ю"); ("О́","О"); ("Е́","Е"); ("Э́","Э"); ("И́","И") ]   
+
+    let no_accented = dict [ ("а","а́"); ("я","я́"); ("у","у́"); ("ю","ю́"); ("о","о́"); ("е","е́"); ("э","э́"); ("и","и́"); ("ы","ы́");
+                      ("А","А́"); ("Я","Я́"); ("У","У́"); ("Ю","Ю́"); ("О","О́"); ("Е","Е́"); ("Э","Э́"); ("И","И́") ]
+
+
+    let setAccent (str :string) (acc :int)  = 
+        let ar = str.ToCharArray()
+        if acc < 0 ||  acc > str.Length  then
+            str
+        elif (ar[acc] = 'ё' || ar[acc] = 'Ё') then
+            str
+        else    
+            let s = ar[acc].ToString()
+            if no_accented.ContainsKey s then
+                $"{System.String(ar[..acc-1])}{(no_accented[s])}{System.String(ar[acc+1..])}"
+            else
+                str
+
+    let setAccented (str :string) (acm :int) (acs :int) =
+        let s1 = setAccent str acm
+        let s2 = setAccent s1 acs
+        s2
+        
+
+    
+    
     let splitLine (str :string) =
         let s = str.Trim()
         let sArr = s.Split("|")
@@ -78,7 +110,7 @@ module ParseLine =
             s[1..]
         else
             s
-              
+    
     let parseNotUsed (str :string) =
         let s = str.Trim()
         s[0] = '*'
@@ -95,7 +127,7 @@ module ParseLine =
         match Int64.TryParse(s) with
         | true, n -> n
         | false, _ -> 0
-    
+     
     let parseAccentMain (str :string) =
         let s = str.Trim() 
         let iAccM = s.IndexOf("'")
@@ -116,6 +148,16 @@ module ParseLine =
         | m,s  when s > 0 && m < 0 -> iAccS - 1
         | _ -> -1    
 
+    
+    let parseDispWord (str :string) =
+        let s = str.Trim()
+        let acm = parseAccentMain s
+        let acs = parseAccentSecond s
+        let s1 = s.Replace("'","").Replace("`","")
+        let s2 = setAccented s1 acm acs
+        s2
+
+    
     let splitGrammar (str :string) =
         let s = str.Trim()
         let ga = s.Split(" ")
@@ -202,6 +244,7 @@ module ParseLine =
         let lm :LemmaStr =
             {
                 Word = parseWord sArr[0]
+                DispWord = parseDispWord sArr[2]
                 Type = TypeRec.Lemma
                 NotUsed = parseNotUsed sArr[0]
                 GramarStr = sArr[1].Trim()
@@ -225,6 +268,7 @@ module ParseLine =
         let wr :WordStr =
             {
                 Word = parseWord sArr[0]
+                DispWord = parseDispWord sArr[2]
                 Type = CheckWordSubword subFl
                 NotUsed = parseNotUsed sArr[0]
                 GramarStr = sArr[1].Trim()
